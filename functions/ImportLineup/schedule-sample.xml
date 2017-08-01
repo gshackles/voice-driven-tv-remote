@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tv SYSTEM "xmltv.dtd">
+<tv date="12/04/2016" source-info-url="http://www.tvmedia.ca" source-info-name="TV Media">
+  <channel id="4555.stations.xmltv.tvmedia.ca">
+    <display-name>CBS (WCBS) New York, NY HD</display-name>
+    <display-name>WCBS-HD</display-name>
+    <display-name>502</display-name>
+    <url>newyork.cbslocal.com/</url>
+    <icon src="http://cdn.tvpassport.com/image/station/76x28/cbs.png"/>
+  </channel>
+  <channel id="19177.stations.xmltv.tvmedia.ca">
+    <display-name>MeTV (WJLP) New Jersey/New York HD</display-name>
+    <display-name>WJLP-HD</display-name>
+    <display-name>503</display-name>
+    <icon src="http://cdn.tvpassport.com/image/station/76x28/metv.png"/>
+  </channel>
+  <programme start="20161204003000 +0000" stop="20161204010000 +0000" channel="4555.stations.xmltv.tvmedia.ca">
+    <title lang="en">The Insider Weekend</title>
+    <desc lang="en">This weekend instalment offers an in-depth look at entertainment news and celebrity gossip through interviews and special reports.</desc>
+    <category lang="en">News Magazine</category>
+    <video>
+      <colour>yes</colour>
+    </video>
+    <rating>
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20161204010000 +0000" stop="20161204020000 +0000" channel="4555.stations.xmltv.tvmedia.ca">
+    <title lang="en">NCIS: New Orleans</title>
+    <sub-title lang="en">The Third Man</sub-title>
+    <desc lang="en">The NCIS team partners with Homeland Security after the murder of a Navy master diver is linked to chatter of a foreign attack on the city.</desc>
+    <credits>
+      <actor>Scott Bakula</actor>
+      <actor>Lucas Black</actor>
+      <actor>Zoe McLellan</actor>
+    </credits>
+    <category lang="en">Drama</category>
+    <icon src="http://cdn.tvpassport.com/image/show/960x540/22528.jpg"/>
+    <video>
+      <colour>yes</colour>
+      <quality>HDTV</quality>
+    </video>
+    <previously-shown/>
+    <rating>
+      <value>14+</value>
+    </rating>
+  </programme>
+  <programme start="20161204003000 +0000" stop="20161204010000 +0000" channel="4555.stations.xmltv.tvmedia.ca">
+    <title lang="en">The Insider Weekend</title>
+    <category lang="en">News Magazine</category>
+    <video>
+      <colour>yes</colour>
+    </video>
+    <rating>
+      <value>PG</value>
+    </rating>
+  </programme>
+</tv>

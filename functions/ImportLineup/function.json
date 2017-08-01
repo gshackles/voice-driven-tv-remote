@@ -1,0 +1,19 @@
+{
+  "bindings": [
+    {
+      "name": "xml",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "lineups/{name}",
+      "connection": "tvlistingstorage_STORAGE"
+    },
+    {
+      "type": "queue",
+      "name": "outputQueueItem",
+      "queueName": "rebuild-requests",
+      "connection": "tvlistingstorage_STORAGE",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}

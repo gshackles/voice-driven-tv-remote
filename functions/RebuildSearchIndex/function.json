@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "inputMessage",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "rebuild-requests",
+      "connection": "tvlistingstorage_STORAGE"
+    }
+  ],
+  "disabled": false
+}

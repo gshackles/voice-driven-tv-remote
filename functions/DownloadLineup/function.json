@@ -1,0 +1,18 @@
+{
+  "bindings": [
+    {
+      "name": "timerTrigger",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 0 7 * * *"
+    },
+    {
+      "type": "blob",
+      "name": "lineupsBlob",
+      "path": "lineups/{rand-guid}.xml",
+      "connection": "tvlistingstorage_STORAGE",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}
