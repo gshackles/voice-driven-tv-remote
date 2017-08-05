@@ -20,7 +20,6 @@ let handleWatchShow (intent: Intent) =
     Search.findShowOnNow intent.Slots.["name"].Value |> function
     | Some(show) -> Search.findChannel show.ChannelId |> function
                     | Some(channel) -> 
-                        Commands.watchTV()
                         Commands.changeChannel channel
                         
                         buildResponse "OK" true
