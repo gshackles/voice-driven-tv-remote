@@ -1,0 +1,12 @@
+{
+    "iotHubConnectionString": "",
+    "sqlConfig": {
+        "server": "",
+        "userName": "",
+        "password": "",
+        "options": { 
+            "encrypt": true,
+            "database": ""
+        }
+    }
+}
