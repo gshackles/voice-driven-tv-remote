@@ -4,7 +4,8 @@
       "dependencies": {
         "FSharp.Interop.Dynamic": "3.0.0",
         "AlexaSkillsKit.NET": "1.5.1",
-        "FSharp.Data": "2.3.2"
+        "FSharp.Data": "2.3.2",
+        "FSharp.Data.SqlClient": "1.8.3-beta"
       }
     }
   }

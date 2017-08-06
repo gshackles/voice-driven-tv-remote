@@ -2,25 +2,18 @@ module Commands
 
 open System
 open System.Text
-open FSharp.Data
 open Microsoft.Azure.Devices
+open FSharp.Data
+open FSharp.Data.SqlClient
 
-type CommandsResponse = JsonProvider<""" {"commands":[{"name":"VolumeDown","slug":"volume-down","label":"Volume Down"}]} """>
-type StatusResponse = JsonProvider<""" {"off":false,"current_activity":{"id":"22754325","slug":"watch-tv","label":"Watch TV","isAVActivity":true}} """>
-
-let serviceClient = ServiceClient.CreateFromConnectionString (Environment.GetEnvironmentVariable("IoTHubConnectionString"))
-
-let private makeRequest method urlPath =
-    let url = sprintf "%s/%s" (Environment.GetEnvironmentVariable("HarmonyApiUrlBase")) urlPath
-    let authHeader = "Authorization", (Environment.GetEnvironmentVariable("HarmonyApiKey"))
-
-    Http.RequestString(url, httpMethod = method, headers = [authHeader])
+[<Literal>]
+let configFile = "D:\\home\\site\\wwwroot\\RemoteSkill\\app.config"
 
 let getCommand (label: string) =
-    makeRequest "GET" "commands"
-    |> CommandsResponse.Parse
-    |> fun res -> res.Commands
-    |> Seq.tryFind (fun command -> command.Label.ToLowerInvariant() = label.ToLowerInvariant())
+    use cmd = new SqlCommandProvider<"SELECT Slug FROM AvailableCommand WHERE Label=@label", "name=TVListings", ConfigFile=configFile, SingleRow=true>()
+    cmd.Execute(label = label)
+
+let serviceClient = ServiceClient.CreateFromConnectionString (Environment.GetEnvironmentVariable("IoTHubConnectionString"))
 
 let executeCommand commandSlug = 
     async {

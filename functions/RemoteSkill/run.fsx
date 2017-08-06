@@ -11,8 +11,8 @@ let buildResponse output shouldEndSession =
 
 let handleDirectCommand (intent: Intent) =
     match (Commands.getCommand intent.Slots.["command"].Value) with
-    | Some(command) ->
-        Commands.executeCommand command.Slug
+    | Some(slug) ->
+        Commands.executeCommand slug
         buildResponse "OK" true
     | None -> buildResponse "Sorry, that command is not available right now" true
 
@@ -50,6 +50,5 @@ type RemoteSpeechlet(log: TraceWriter) =
         sprintf "OnSessionEnded: request %s, session %s" request.RequestId session.SessionId |> log.Info
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
-    sprintf "%O" req
     let speechlet = RemoteSpeechlet log
     speechlet.GetResponse req
