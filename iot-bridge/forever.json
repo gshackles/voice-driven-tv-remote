@@ -1,0 +1,7 @@
+{
+  "uid": "iot-bridge",
+  "append": true,
+  "script": "/home/pi/iot-bridge/index.js",
+  "outFile": "/home/pi/iot-bridge/logs.log",
+  "errFile": "/home/pi/iot-bridge/error.log"
+}

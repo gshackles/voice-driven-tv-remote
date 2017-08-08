@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/env forever start /home/pi/iot-bridge/forever.json

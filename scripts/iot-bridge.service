@@ -1,0 +1,18 @@
+[Unit]
+Description=IoT Hub Bridge
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/home/pi/iot-bridge/server
+Restart=on-failure
+RestartSec=10
+KillMode=process
+PIDFile=/var/run/iot-bridge.pid
+StandardOutput=inherit
+StandardError=inherit
+SyslogIdentifier=iot-bridge
+
+[Install]
+WantedBy=multi-user.target
