@@ -1,3 +1,4 @@
+#load "telemetry.fsx"
 #load "commands.fsx"
 #load "search.fsx"
 open System.Net.Http
@@ -10,6 +11,7 @@ let buildResponse output shouldEndSession =
                       OutputSpeech = PlainTextOutputSpeech(Text = output))
 
 let handleDirectCommand (intent: Intent) =
+    use operation = Telemetry.startOperation "HandleDirectCommand"
     match (Commands.getCommand intent.Slots.["command"].Value) with
     | Some(slug) ->
         Commands.executeCommand slug
@@ -17,6 +19,7 @@ let handleDirectCommand (intent: Intent) =
     | None -> buildResponse "Sorry, that command is not available right now" true
 
 let handleWatchShow (intent: Intent) =
+    use operation = Telemetry.startOperation "HandleWatchShow"
     Search.findShowOnNow intent.Slots.["name"].Value |> function
     | Some(show) -> Search.findChannel show.ChannelId |> function
                     | Some(channel) -> 
@@ -49,6 +52,8 @@ type RemoteSpeechlet(log: TraceWriter) =
     override this.OnSessionEnded(request: SessionEndedRequest, session: Session) =
         sprintf "OnSessionEnded: request %s, session %s" request.RequestId session.SessionId |> log.Info
 
-let Run(req: HttpRequestMessage, log: TraceWriter) =
+let Run(req: HttpRequestMessage, log: TraceWriter, context: ExecutionContext) =
+    Telemetry.setOperationId (context.InvocationId.ToString())
+
     let speechlet = RemoteSpeechlet log
     speechlet.GetResponse req

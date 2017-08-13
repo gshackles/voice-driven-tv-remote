@@ -19,10 +19,16 @@ let private search index (request: SearchRequest.Root) =
     Http.RequestString(url, body = TextRequest json,
                        headers = [ ContentType HttpContentTypes.Json; apiKeyHeader ])
 
-let private searchShows request = search "shows" request |> ShowSearchResults.Parse
-let private searchChannels request = search "channels" request |> ChannelSearchResults.Parse
+let private searchShows request =
+    use operation = Telemetry.startOperation "ShowSearch"
+    search "shows" request |> ShowSearchResults.Parse
+
+let private searchChannels request =
+    use operation = Telemetry.startOperation "ChannelSearch"
+    search "channels" request |> ChannelSearchResults.Parse
 
 let findChannel channelId = 
+    use operation = Telemetry.startOperation "FindChannel"
     SearchRequest.Root((sprintf "ChannelId eq '%i'" channelId), 1, "") 
     |> searchChannels
     |> fun result -> 
@@ -31,6 +37,7 @@ let findChannel channelId =
         | None -> None
 
 let findShowOnNow (name: string) =
+    use operation = Telemetry.startOperation "FindShowOnNow"
     let timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss")
     let filter = sprintf "StartTime lt '%s' and EndTime gt '%s'" timestamp timestamp
     

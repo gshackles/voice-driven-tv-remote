@@ -10,12 +10,14 @@ open FSharp.Data.SqlClient
 let configFile = "D:\\home\\site\\wwwroot\\RemoteSkill\\app.config"
 
 let getCommand (label: string) =
+    use operation = Telemetry.startOperation "GetCommand"
     use cmd = new SqlCommandProvider<"SELECT Slug FROM AvailableCommand WHERE Label=@label", "name=TVListings", ConfigFile=configFile, SingleRow=true>()
     cmd.Execute(label = label)
 
 let serviceClient = ServiceClient.CreateFromConnectionString (Environment.GetEnvironmentVariable("IoTHubConnectionString"))
 
 let executeCommand commandSlug = 
+    use operation = Telemetry.startOperation "ExecuteCommand"
     async {
         sprintf "harmony-api/hubs/living-room/command;%s" commandSlug
         |> Encoding.ASCII.GetBytes
@@ -29,5 +31,6 @@ let executeCommand commandSlug =
     } |> Async.RunSynchronously
     
 let changeChannel number = 
+    use operation = Telemetry.startOperation "ChangeChannel"
     string number |> Seq.map string |> Seq.iter executeCommand
     executeCommand "select"

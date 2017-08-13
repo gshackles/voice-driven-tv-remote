@@ -5,6 +5,8 @@
         "FSharp.Interop.Dynamic": "3.0.0",
         "AlexaSkillsKit.NET": "1.5.1",
         "FSharp.Data": "2.3.2",
+        "Microsoft.Azure.Devices": "1.3.0",
+        "Microsoft.ApplicationInsights": "2.4.0",
         "FSharp.Data.SqlClient": "1.8.3-beta"
       }
     }
