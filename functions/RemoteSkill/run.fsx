@@ -15,7 +15,7 @@ let handleDirectCommand (intent: Intent) =
     match (Commands.getCommand intent.Slots.["command"].Value) with
     | Some(slug) ->
         Commands.executeCommand slug
-        buildResponse "OK" true
+        buildResponse "" true
     | None -> buildResponse "Sorry, that command is not available right now" true
 
 let handleWatchShow (intent: Intent) =
@@ -25,7 +25,7 @@ let handleWatchShow (intent: Intent) =
                     | Some(channel) -> 
                         Commands.changeChannel channel
                         
-                        buildResponse "OK" true
+                        buildResponse "" true
                     | None -> buildResponse "Sorry, I could not find the channel for that show" true
     | None -> buildResponse "Sorry, I could not find that show" true
 
