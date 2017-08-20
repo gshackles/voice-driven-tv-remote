@@ -71,15 +71,22 @@ function onAzureConnect(err) {
         azureClient.open(onAzureConnect);
     });
 
-    azureClient.on('message', msg => {
-        const [topic, payload] = msg.data.toString().split(';');
-        console.info(`received ${topic}: ${payload}`);
+    function sendCommand(command) {
+        const [topic, payload] = command.split(';');
+
+        console.info(`sending ${topic}: ${payload}`);
 
         broker.publish({
             topic,
             payload
         });
-    });
+    }
+
+    azureClient.on('message', msg =>
+        msg.data.toString()
+            .split('\n')
+            .forEach((command, index) => setTimeout(
+                () => sendCommand(command), index * CommandDelayMs)));
 }
 
 azureClient.open(onAzureConnect);

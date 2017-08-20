@@ -16,21 +16,25 @@ let getCommand (label: string) =
 
 let serviceClient = ServiceClient.CreateFromConnectionString (Environment.GetEnvironmentVariable("IoTHubConnectionString"))
 
-let executeCommand commandSlug = 
+let executeCommands commandSlugs = 
     use operation = Telemetry.startOperation "ExecuteCommand"
+    
     async {
-        sprintf "harmony-api/hubs/living-room/command;%s" commandSlug
+        commandSlugs 
+        |> Seq.map (fun slug -> sprintf "harmony-api/hubs/living-room/command;%s" slug)
+        |> String.concat "\n"
         |> Encoding.ASCII.GetBytes
         |> fun bytes -> new Message(bytes)
         |> fun message -> serviceClient.SendAsync("harmony-bridge", message)
         |> Async.AwaitIAsyncResult 
         |> Async.Ignore
         |> ignore
-
-        do! Async.Sleep 250
     } |> Async.RunSynchronously
-    
+
+let executeCommand commandSlug = executeCommands [commandSlug]
+
 let changeChannel number = 
     use operation = Telemetry.startOperation "ChangeChannel"
-    string number |> Seq.map string |> Seq.iter executeCommand
-    executeCommand "select"
+    
+    Seq.append (string number |> Seq.map string) ["select"]
+    |> executeCommands
