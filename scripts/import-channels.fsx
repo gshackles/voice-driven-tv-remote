@@ -23,7 +23,6 @@ doc.Channels
     | _ -> None
 )
 |> Array.choose id
-|> Array.filter (fun channel -> channel.Number > 500 && channel.Number < 1000)
 |> Array.iter (fun channel ->
     use cmd = new SqlCommandProvider<"INSERT INTO Channel VALUES (@xmlTvId, @displayName, @fullName, @number)", "name=TVListings">()
     cmd.Execute(xmlTvId = channel.XmlTvId, displayName = channel.DisplayName, fullName = channel.FullName, number = channel.Number) |> ignore
