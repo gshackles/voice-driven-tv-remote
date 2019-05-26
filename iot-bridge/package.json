@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "aedes": "^0.29.0",
+    "aedes": "^0.38.0",
     "azure-iot-device-mqtt": "^1.1.16",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
