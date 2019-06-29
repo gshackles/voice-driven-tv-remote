@@ -19,3 +19,4 @@ Publish
 /secrets
 /data
 .secrets
+.ionide
