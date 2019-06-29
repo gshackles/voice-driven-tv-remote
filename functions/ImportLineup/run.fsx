@@ -26,6 +26,7 @@ let Run(xml: string, name: string, log: TraceWriter, outputQueueItem: byref<stri
     Database.clearShows()
 
     listings.Programmes
+    |> Array.take 10000
     |> Array.iter (addShow log channelLookup)
 
     outputQueueItem <- name
